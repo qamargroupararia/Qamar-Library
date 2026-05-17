@@ -1,265 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QAMAR GROUP</title>
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, sans-serif;
-}
-
-body{
-background:#f4f4f4;
-color:#222;
-}
-
-header{
-background:linear-gradient(45deg,#0f172a,#1e293b);
-color:white;
-padding:40px 20px;
-text-align:center;
-}
-
-header h1{
-font-size:40px;
-margin-bottom:10px;
-}
-
-header p{
-font-size:18px;
-}
-
-nav{
-background:#111827;
-padding:12px;
-text-align:center;
-}
-
-nav a{
-color:white;
-text-decoration:none;
-margin:10px;
-font-weight:bold;
-}
-
-.hero{
-padding:50px 20px;
-text-align:center;
-background:white;
-}
-
-.hero h2{
-font-size:35px;
-margin-bottom:15px;
-color:#0f172a;
-}
-
-.hero p{
-font-size:18px;
-margin-bottom:25px;
-}
-
-.btn{
-display:inline-block;
-padding:12px 25px;
-background:#2563eb;
-color:white;
-text-decoration:none;
-border-radius:8px;
-font-weight:bold;
-}
-
-.section{
-padding:50px 20px;
-}
-
-.section-title{
-text-align:center;
-font-size:32px;
-margin-bottom:30px;
-color:#0f172a;
-}
-
-.services{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-}
-
-.card{
-background:white;
-padding:25px;
-border-radius:15px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
-text-align:center;
-}
-
-.card h3{
-margin-bottom:15px;
-color:#2563eb;
-}
-
-.booking-form{
-background:white;
-padding:25px;
-max-width:500px;
-margin:auto;
-border-radius:15px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
-
-.booking-form input,
-.booking-form textarea,
-.booking-form select{
-width:100%;
-padding:12px;
-margin:10px 0;
-border:1px solid #ccc;
-border-radius:8px;
-}
-
-.booking-form button{
-width:100%;
-padding:12px;
-background:#16a34a;
-color:white;
-border:none;
-border-radius:8px;
-font-size:16px;
-font-weight:bold;
-}
-
-.gallery{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:15px;
-}
-
-.gallery img{
-width:100%;
-border-radius:12px;
-height:220px;
-object-fit:cover;
-}
-
-.contact{
-text-align:center;
-background:#0f172a;
-color:white;
-padding:40px 20px;
-}
-
-.whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-color:white;
-padding:15px 18px;
-border-radius:50px;
-font-size:20px;
-text-decoration:none;
-font-weight:bold;
-}
-
-footer{
-background:#111827;
-color:white;
-text-align:center;
-padding:15px;
-}
-</style>
+  <title>Qamar Library</title>
 </head>
+
 <body>
 
-<header>
-<h1>QAMAR GROUP</h1>
-<p>Library • Consultancy • Computer Classes & Services</p>
-</header>
+<h1>Qamar Library</h1>
 
-<nav>
-<a href="#services">Services</a>
-<a href="#booking">Seat Booking</a>
-<a href="#gallery">Gallery</a>
-<a href="#contact">Contact</a>
-</nav>
+<button onclick="saveData()">
+ Save Data
+</button>
 
-<section class="hero">
-<h2>Welcome to QAMAR GROUP</h2>
-<p>Best Place For Self Study & Student Services</p>
-<a class="btn" href="#booking">Book Your Seat</a>
-</section>
+<script type="module">
 
-<section class="section" id="services">
-<h2 class="section-title">Our Services</h2>
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-<div class="services">
-<div class="card">
-<h3>Library</h3>
-<p>Peaceful AC Self Study Zone with WiFi & CCTV.</p>
-</div>
+import {
+ getFirestore,
+ collection,
+ addDoc
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-<div class="card">
-<h3>Consultancy</h3>
-<p>D.El.Ed & B.Ed Admission Support (MP, UP & Bihar).</p>
-</div>
+const firebaseConfig = {
 
-<div class="card">
-<h3>Computer Classes</h3>
-<p>Basic Computer, Typing, MS Office & Online Form Fillup.</p>
-</div>
+ apiKey: "AIzaSyDXl60NQHJV2J1iEV6-SjF61197FWVtdNk",
 
-<div class="card">
-<h3>Online Services</h3>
-<p>Scholarship, Admit Card, Result & Government Form Services.</p>
-</div>
-</div>
-</section>
+ authDomain: "qamar-library.firebaseapp.com",
 
-<section class="section" id="booking">
-<h2 class="section-title">Seat Booking</h2>
+ projectId: "qamar-library",
 
-<div class="booking-form">
-<input type="text" placeholder="Full Name">
-<input type="tel" placeholder="Mobile Number">
-<select>
-<option>Select Seat Type</option>
-<option>Normal Seat</option>
-<option>Premium Seat</option>
-</select>
-<textarea rows="4" placeholder="Your Message"></textarea>
-<button>Book Now</button>
-</div>
-</section>
+ storageBucket: "qamar-library.firebasestorage.app",
 
-<section class="section" id="gallery">
-<h2 class="section-title">Gallery</h2>
+ messagingSenderId: "256574977198",
 
-<div class="gallery">
-<img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1000" />
-<img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1000" />
-<img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1000" />
-</div>
-</section>
+ appId: "1:256574977198:web:0241dcc68ac5de4bea293f",
 
-<section class="contact" id="contact">
-<h2>Contact Us</h2>
-<p>QAMAR GROUP, Araria</p>
-<p>📞 +91 7645012001</p>
-<p>📍 ISLAM NAGAR Near Sarfaraz Ex MP Recidence & Gradeup Classes (ARARIA)</p>
-<br>
-<a class="btn" href="https://wa.me/917645012001">WhatsApp Now</a>
-</section>
+ measurementId: "G-D3ZTCF8TJX"
 
-<a class="whatsapp" href="https://wa.me/917645012001">WA</a>
+};
 
-<footer>
-© 2026 QAMAR GROUP | All Rights Reserved
-</footer>
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+async function saveData() {
+
+ await addDoc(
+   collection(db, "students"),
+   {
+     name: "Qamar"
+   }
+ );
+
+ alert("Data Saved Successfully");
+
+}
+
+window.saveData = saveData;
+
+</script>
 
 </body>
 </html>
