@@ -1,68 +1,42 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Qamar Library</title>
-</head>
 
-<body>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
 
-<h1>Qamar Library</h1>
+    body{
+      background:#f5f7fb;
+      padding:30px;
+    }
 
-<button onclick="saveData()">
- Save Data
-</button>
+    .container{
+      max-width:700px;
+      margin:auto;
+      background:white;
+      padding:30px;
+      border-radius:15px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.1);
+    }
 
-<script type="module">
+    h1{
+      text-align:center;
+      margin-bottom:25px;
+      color:#ff6600;
+    }
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
- getFirestore,
- collection,
- addDoc
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig = {
-
- apiKey: "AIzaSyDXl60NQHJV2J1iEV6-SjF61197FWVtdNk",
-
- authDomain: "qamar-library.firebaseapp.com",
-
- projectId: "qamar-library",
-
- storageBucket: "qamar-library.firebasestorage.app",
-
- messagingSenderId: "256574977198",
-
- appId: "1:256574977198:web:0241dcc68ac5de4bea293f",
-
- measurementId: "G-D3ZTCF8TJX"
-
-};
-
-const app = initializeApp(firebaseConfig);
-
-const db = getFirestore(app);
-
-async function saveData() {
-
- await addDoc(
-   collection(db, "students"),
-   {
-     name: "Qamar"
-   }
- );
-
- alert("Data Saved Successfully");
-
-}
-
-window.saveData = saveData;
-
-</script>
-
-</body>
+    input{
+      width:100%;
+      padding:14px;
+      margin-bottom:15px;
+      border:1px solid #ccc;
+      border-radius:10px;
 </html>
