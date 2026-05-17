@@ -1,42 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Qamar Library</title>
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, sans-serif;
-    }
+const app = initializeApp(firebaseConfig);
 
-    body{
-      background:#f5f7fb;
-      padding:30px;
-    }
+const db = getFirestore(app);
 
-    .container{
-      max-width:700px;
-      margin:auto;
-      background:white;
-      padding:30px;
-      border-radius:15px;
-      box-shadow:0 5px 20px rgba(0,0,0,0.1);
-    }
+window.saveData = async function () {
 
-    h1{
-      text-align:center;
-      margin-bottom:25px;
-      color:#ff6600;
-    }
+  const name = document.getElementById("name").value;
+  const mobile = document.getElementById("mobile").value;
 
-    input{
-      width:100%;
-      padding:14px;
-      margin-bottom:15px;
-      border:1px solid #ccc;
-      border-radius:10px;
+  if(name === "" || mobile === ""){
+    alert("Please Fill All Fields");
+    return;
+  }
+
+  try {
+
+    await addDoc(collection(db, "students"), {
+      name: name,
+      mobile: mobile,
+      time: new Date()
+    });
+
+    alert("Data Saved Successfully");
+
+    document.getElementById("name").value = "";
+    document.getElementById("mobile").value = "";
+
+    loadStudents();
+
+  } catch(error) {
+
+    console.error(error);
+    alert(error.message);
+
+  }
+
+}
+
+async function loadStudents(){
+
+  const studentsList = document.getElementById("studentsList");
+
+  studentsList.innerHTML = "";
+
+  const querySnapshot = await getDocs(collection(db, "students"));
+
+  querySnapshot.forEach((doc) => {
+
+    const data = doc.data();
+
+    studentsList.innerHTML += `
+      <div class="card">
+        <h3>${data.name}</h3>
+        <p>${data.mobile}</p>
+      </div>
+    `;
+
+  });
+
+}
+
+loadStudents();
+
+</script>
+
+</body>
 </html>
