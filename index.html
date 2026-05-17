@@ -1,15 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Qamar Library</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>QAMAR LIBRARY PRO</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -23,108 +17,119 @@
 }
 
 body{
-  min-height:100vh;
   background:linear-gradient(135deg,#ff6a00,#ee0979);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:25px;
+  min-height:100vh;
+  padding:20px;
 }
 
 .container{
-  width:100%;
-  max-width:900px;
+  max-width:1400px;
+  margin:auto;
+}
+
+.header{
   background:rgba(255,255,255,0.15);
   backdrop-filter:blur(15px);
-  border:1px solid rgba(255,255,255,0.2);
-  border-radius:30px;
-  padding:35px;
-  box-shadow:0 10px 40px rgba(0,0,0,0.2);
+  border-radius:25px;
+  padding:25px;
+  margin-bottom:25px;
+  color:white;
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
 }
 
-.logo{
-  text-align:center;
-  color:white;
-  font-size:45px;
-  font-weight:700;
-  margin-bottom:10px;
+.header h1{
+  font-size:42px;
+  margin-bottom:8px;
 }
 
-.subtitle{
-  text-align:center;
-  color:white;
+.header p{
   opacity:0.9;
-  margin-bottom:30px;
-  font-size:16px;
 }
 
-.form-box{
+.dashboard{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  margin-bottom:25px;
 }
 
-input{
+.stat-card{
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.stat-card h2{
+  font-size:38px;
+  color:#ff6a00;
+}
+
+.stat-card p{
+  color:#666;
+  margin-top:5px;
+}
+
+.main-grid{
+  display:grid;
+  grid-template-columns:380px 1fr;
+  gap:25px;
+}
+
+.panel{
+  background:white;
+  border-radius:25px;
+  padding:25px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.panel h2{
+  margin-bottom:20px;
+  color:#222;
+}
+
+input,
+select{
   width:100%;
-  padding:16px;
-  border:none;
-  outline:none;
-  border-radius:15px;
-  background:rgba(255,255,255,0.9);
-  font-size:16px;
+  padding:14px;
+  margin-bottom:15px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  font-size:15px;
 }
 
 button{
-  grid-column:1/3;
-  padding:16px;
+  width:100%;
+  padding:14px;
   border:none;
-  border-radius:15px;
-  background:#111;
+  border-radius:12px;
+  background:linear-gradient(90deg,#ff6a00,#ee0979);
   color:white;
-  font-size:18px;
+  font-size:16px;
   font-weight:600;
   cursor:pointer;
   transition:0.3s;
 }
 
 button:hover{
-  background:#000;
-  transform:translateY(-3px);
+  transform:translateY(-2px);
 }
 
-.stats{
-  margin-top:25px;
-  background:rgba(255,255,255,0.2);
-  padding:15px;
-  border-radius:15px;
-  text-align:center;
-  color:white;
-  font-size:20px;
-  font-weight:600;
-}
-
-.students{
-  margin-top:30px;
+.student-list{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:20px;
 }
 
-.card{
-  background:white;
-  border-radius:20px;
-  padding:22px;
+.student-card{
+  background:#f7f7f7;
+  border-radius:18px;
+  padding:20px;
   position:relative;
   overflow:hidden;
-  box-shadow:0 5px 15px rgba(0,0,0,0.1);
-  transition:0.3s;
 }
 
-.card:hover{
-  transform:translateY(-5px);
-}
-
-.card::before{
+.student-card::before{
   content:'';
   position:absolute;
   top:0;
@@ -134,95 +139,176 @@ button:hover{
   background:linear-gradient(90deg,#ff6a00,#ee0979);
 }
 
-.card h3{
-  color:#222;
+.student-card h3{
   margin-bottom:10px;
-  font-size:24px;
 }
 
-.card p{
+.student-card p{
   color:#666;
-  font-size:17px;
+  margin-bottom:6px;
 }
 
-@media(max-width:768px){
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
 
-  .form-box{
-    grid-template-columns:1fr;
-  }
+.actions button{
+  flex:1;
+  padding:10px;
+  font-size:14px;
+}
 
-  button{
-    grid-column:auto;
-  }
+.delete-btn{
+  background:#e53935;
+}
 
-  .students{
-    grid-template-columns:1fr;
-  }
+.edit-btn{
+  background:#222;
+}
 
-  .logo{
-    font-size:34px;
-  }
+.seat-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:12px;
+  margin-top:15px;
+}
+
+.seat{
+  padding:18px 10px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.available{
+  background:#d4edda;
+  color:#155724;
+}
+
+.booked{
+  background:#f8d7da;
+  color:#721c24;
+}
+
+.search-box{
+  margin-bottom:20px;
+}
+
+@media(max-width:1000px){
+
+.main-grid{
+  grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:600px){
+
+.seat-grid{
+  grid-template-columns:repeat(3,1fr);
+}
+
+.header h1{
+  font-size:30px;
+}
 
 }
 
 </style>
-
 </head>
-
 <body>
 
 <div class="container">
 
-<h1 class="logo">Qamar Library</h1>
+<div class="header">
+  <h1>QAMAR LIBRARY PRO</h1>
+  <p>Advanced Library + Seat Booking + Student Management System</p>
+</div>
 
-<p class="subtitle">
-Smart Student Management System
-</p>
+<div class="dashboard">
 
-<div class="form-box">
+  <div class="stat-card">
+    <h2 id="totalStudents">0</h2>
+    <p>Total Students</p>
+  </div>
 
-<input 
-type="text" 
-id="name" 
-placeholder="Enter Student Name"
->
+  <div class="stat-card">
+    <h2 id="availableSeats">0</h2>
+    <p>Available Seats</p>
+  </div>
 
-<input 
-type="text" 
-id="mobile" 
-placeholder="Enter Mobile Number"
->
+  <div class="stat-card">
+    <h2 id="bookedSeats">0</h2>
+    <p>Booked Seats</p>
+  </div>
 
-<button onclick="saveData()">
+  <div class="stat-card">
+    <h2 id="totalSeats">30</h2>
+    <p>Total Seats</p>
+  </div>
+
+</div>
+
+<div class="main-grid">
+
+<div class="panel">
+
+<h2>Add Student</h2>
+
+<input type="text" id="name" placeholder="Student Name">
+
+<input type="text" id="mobile" placeholder="Mobile Number">
+
+<select id="seatNumber">
+<option value="">Select Seat</option>
+</select>
+
+<button onclick="saveStudent()">
 Save Student
 </button>
 
+<hr style="margin:25px 0;opacity:0.2;">
+
+<h2>Seat Status</h2>
+
+<div class="seat-grid" id="seatGrid"></div>
+
 </div>
 
-<div class="stats" id="totalStudents">
-Total Students : 0
+<div class="panel">
+
+<h2>Student Records</h2>
+
+<input type="text" id="searchInput" class="search-box" placeholder="Search Student..." onkeyup="searchStudents()">
+
+<div class="student-list" id="studentList"></div>
+
 </div>
 
-<div class="students" id="studentsList"></div>
+</div>
 
 </div>
 
 <script type="module">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
   getFirestore,
   collection,
   addDoc,
-  getDocs
+  getDocs,
+  deleteDoc,
+  doc
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyDXl60NQHJV2J1iEV6-SjF61197FWVtdNk",
+  apiKey: "YOUR_API_KEY",
 
   authDomain: "qamar-library.firebaseapp.com",
 
@@ -232,9 +318,7 @@ const firebaseConfig = {
 
   messagingSenderId: "256574977198",
 
-  appId: "1:256574977198:web:0241dcc68ac5de4bea293f",
-
-  measurementId: "G-D3ZTCF8TJX"
+  appId: "1:256574977198:web:0241dcc68ac5de4bea293f"
 
 };
 
@@ -242,88 +326,139 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
-window.saveData = async function(){
+const totalSeats = 30;
 
-  const name = document.getElementById("name").value.trim();
+window.saveStudent = async function(){
 
-  const mobile = document.getElementById("mobile").value.trim();
+  const name = document.getElementById('name').value.trim();
+  const mobile = document.getElementById('mobile').value.trim();
+  const seat = document.getElementById('seatNumber').value;
 
-  if(name === "" || mobile === ""){
-
-    alert("Please Fill All Fields");
-
+  if(name === '' || mobile === '' || seat === ''){
+    alert('Please Fill All Fields');
     return;
+  }
+
+  await addDoc(collection(db,'students'),{
+    name,
+    mobile,
+    seat,
+    createdAt:new Date()
+  });
+
+  document.getElementById('name').value='';
+  document.getElementById('mobile').value='';
+  document.getElementById('seatNumber').value='';
+
+  loadStudents();
+
+}
+
+async function loadStudents(){
+
+  const snapshot = await getDocs(collection(db,'students'));
+
+  const studentList = document.getElementById('studentList');
+  const seatGrid = document.getElementById('seatGrid');
+  const seatNumber = document.getElementById('seatNumber');
+
+  studentList.innerHTML='';
+  seatGrid.innerHTML='';
+  seatNumber.innerHTML='<option value="">Select Seat</option>';
+
+  let bookedSeats = [];
+
+  document.getElementById('totalStudents').innerText = snapshot.size;
+
+  snapshot.forEach((student)=>{
+
+    const data = student.data();
+
+    bookedSeats.push(data.seat);
+
+    studentList.innerHTML += `
+
+      <div class="student-card">
+
+        <h3>${data.name}</h3>
+
+        <p>📞 ${data.mobile}</p>
+
+        <p>💺 Seat : ${data.seat}</p>
+
+        <div class="actions">
+
+          <button class="delete-btn" onclick="deleteStudent('${student.id}')">
+          Delete
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+  let available = 0;
+
+  for(let i=1;i<=totalSeats;i++){
+
+    if(bookedSeats.includes(String(i))){
+
+      seatGrid.innerHTML += `
+      <div class="seat booked">${i}</div>
+      `;
+
+    }else{
+
+      available++;
+
+      seatGrid.innerHTML += `
+      <div class="seat available">${i}</div>
+      `;
+
+      seatNumber.innerHTML += `
+      <option value="${i}">Seat ${i}</option>
+      `;
+
+    }
 
   }
 
-  try{
+  document.getElementById('availableSeats').innerText = available;
 
-    await addDoc(collection(db,"students"),{
+  document.getElementById('bookedSeats').innerText = totalSeats - available;
 
-      name:name,
-      mobile:mobile,
-      time:new Date()
+}
 
-    });
+window.deleteStudent = async function(id){
 
-    document.getElementById("name").value="";
+  if(confirm('Delete Student?')){
 
-    document.getElementById("mobile").value="";
+    await deleteDoc(doc(db,'students',id));
 
     loadStudents();
 
   }
 
-  catch(error){
+}
 
-    console.error(error);
+window.searchStudents = function(){
 
-    alert(error.message);
+  const input = document.getElementById('searchInput').value.toLowerCase();
 
-  }
+  const cards = document.querySelectorAll('.student-card');
 
-};
+  cards.forEach(card=>{
 
-async function loadStudents(){
+    if(card.innerText.toLowerCase().includes(input)){
+      card.style.display='block';
+    }else{
+      card.style.display='none';
+    }
 
-  const studentsList = document.getElementById("studentsList");
-
-  const totalStudents = document.getElementById("totalStudents");
-
-  studentsList.innerHTML = "";
-
-  try{
-
-    const querySnapshot = await getDocs(collection(db,"students"));
-
-    totalStudents.innerHTML =
-    `Total Students : ${querySnapshot.size}`;
-
-    querySnapshot.forEach((doc)=>{
-
-      const data = doc.data();
-
-      studentsList.innerHTML += `
-
-      <div class="card">
-
-        <h3>${data.name}</h3>
-
-        <p>📞 ${data.mobile || "No Number"}</p>
-
-      </div>
-
-      `;
-
-    });
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-  }
+  });
 
 }
 
@@ -332,5 +467,4 @@ loadStudents();
 </script>
 
 </body>
-
 </html>
