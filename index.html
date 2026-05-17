@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Qamar Library</title>
 
   <style>
@@ -10,7 +10,7 @@
       margin:0;
       padding:0;
       box-sizing:border-box;
-      font-family:Arial, sans-serif;
+      font-family:Arial,sans-serif;
     }
 
     body{
@@ -21,7 +21,7 @@
     .container{
       max-width:700px;
       margin:auto;
-      background:white;
+      background:#fff;
       padding:30px;
       border-radius:15px;
       box-shadow:0 5px 20px rgba(0,0,0,0.1);
@@ -40,6 +40,11 @@
       border:1px solid #ccc;
       border-radius:10px;
       font-size:16px;
+      outline:none;
+    }
+
+    input:focus{
+      border-color:#ff6600;
     }
 
     button{
@@ -67,6 +72,7 @@
       padding:15px;
       border-radius:10px;
       margin-bottom:12px;
+      border-left:5px solid #ff6600;
     }
 
     .card h3{
@@ -79,6 +85,7 @@
     }
   </style>
 </head>
+
 <body>
 
 <div class="container">
@@ -97,32 +104,32 @@
 
 <script type="module">
 
-import { initializeApp }
+import { initializeApp } 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-import {
+import { 
   getFirestore,
   collection,
   addDoc,
   getDocs
-}
+} 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
 
- apiKey: "AIzaSyDXl60NQHJV2J1iEV6-SjF61197FWVtdNk",
+  apiKey: "AIzaSyDXl60NQHJV2J1iEV6-SjF61197FWVtdNk",
 
- authDomain: "qamar-library.firebaseapp.com",
+  authDomain: "qamar-library.firebaseapp.com",
 
- projectId: "qamar-library",
+  projectId: "qamar-library",
 
- storageBucket: "qamar-library.firebasestorage.app",
+  storageBucket: "qamar-library.appspot.com",
 
- messagingSenderId: "256574977198",
+  messagingSenderId: "256574977198",
 
- appId: "1:256574977198:web:0241dcc68ac5de4bea293f",
+  appId: "1:256574977198:web:0241dcc68ac5de4bea293f",
 
- measurementId: "G-D3ZTCF8TJX"
+  measurementId: "G-D3ZTCF8TJX"
 
 };
 
@@ -132,20 +139,25 @@ const db = getFirestore(app);
 
 window.saveData = async function () {
 
-  const name = document.getElementById("name").value;
-  const mobile = document.getElementById("mobile").value;
+  const name = document.getElementById("name").value.trim();
+
+  const mobile = document.getElementById("mobile").value.trim();
 
   if(name === "" || mobile === ""){
+
     alert("Please Fill All Fields");
     return;
+
   }
 
-  try {
+  try{
 
     await addDoc(collection(db, "students"), {
+
       name: name,
       mobile: mobile,
       time: new Date()
+
     });
 
     alert("Data Saved Successfully");
@@ -155,14 +167,14 @@ window.saveData = async function () {
 
     loadStudents();
 
-  } catch(error) {
+  }catch(error){
 
     console.error(error);
     alert(error.message);
 
   }
 
-}
+};
 
 async function loadStudents(){
 
@@ -170,20 +182,33 @@ async function loadStudents(){
 
   studentsList.innerHTML = "";
 
-  const querySnapshot = await getDocs(collection(db, "students"));
+  try{
 
-  querySnapshot.forEach((doc) => {
+    const querySnapshot = await getDocs(collection(db, "students"));
 
-    const data = doc.data();
+    querySnapshot.forEach((doc) => {
 
-    studentsList.innerHTML += `
-      <div class="card">
-        <h3>${data.name}</h3>
-        <p>${data.mobile}</p>
-      </div>
-    `;
+      const data = doc.data();
 
-  });
+      studentsList.innerHTML += `
+
+        <div class="card">
+
+          <h3>${data.name}</h3>
+
+          <p>${data.mobile}</p>
+
+        </div>
+
+      `;
+
+    });
+
+  }catch(error){
+
+    console.error(error);
+
+  }
 
 }
 
