@@ -1,118 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Qamar Library</title>
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial,sans-serif;
-    }
+<meta charset="UTF-8">
 
-    body{
-      background:#f5f7fb;
-      padding:30px;
-    }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    .container{
-      max-width:700px;
-      margin:auto;
-      background:#fff;
-      padding:30px;
-      border-radius:15px;
-      box-shadow:0 5px 20px rgba(0,0,0,0.1);
-    }
+<title>Qamar Library</title>
 
-    h1{
-      text-align:center;
-      margin-bottom:25px;
-      color:#ff6600;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-    input{
-      width:100%;
-      padding:14px;
-      margin-bottom:15px;
-      border:1px solid #ccc;
-      border-radius:10px;
-      font-size:16px;
-      outline:none;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    input:focus{
-      border-color:#ff6600;
-    }
+<style>
 
-    button{
-      width:100%;
-      padding:14px;
-      background:#ff6600;
-      border:none;
-      color:white;
-      font-size:18px;
-      border-radius:10px;
-      cursor:pointer;
-      transition:0.3s;
-    }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
 
-    button:hover{
-      background:#e65c00;
-    }
+body{
+  min-height:100vh;
+  background:linear-gradient(135deg,#ff6a00,#ee0979);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:25px;
+}
 
-    .students{
-      margin-top:30px;
-    }
+.container{
+  width:100%;
+  max-width:900px;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(15px);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:30px;
+  padding:35px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.2);
+}
 
-    .card{
-      background:#f1f3f6;
-      padding:15px;
-      border-radius:10px;
-      margin-bottom:12px;
-      border-left:5px solid #ff6600;
-    }
+.logo{
+  text-align:center;
+  color:white;
+  font-size:45px;
+  font-weight:700;
+  margin-bottom:10px;
+}
 
-    .card h3{
-      margin-bottom:5px;
-      color:#222;
-    }
+.subtitle{
+  text-align:center;
+  color:white;
+  opacity:0.9;
+  margin-bottom:30px;
+  font-size:16px;
+}
 
-    .card p{
-      color:#555;
-    }
-  </style>
+.form-box{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+input{
+  width:100%;
+  padding:16px;
+  border:none;
+  outline:none;
+  border-radius:15px;
+  background:rgba(255,255,255,0.9);
+  font-size:16px;
+}
+
+button{
+  grid-column:1/3;
+  padding:16px;
+  border:none;
+  border-radius:15px;
+  background:#111;
+  color:white;
+  font-size:18px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#000;
+  transform:translateY(-3px);
+}
+
+.stats{
+  margin-top:25px;
+  background:rgba(255,255,255,0.2);
+  padding:15px;
+  border-radius:15px;
+  text-align:center;
+  color:white;
+  font-size:20px;
+  font-weight:600;
+}
+
+.students{
+  margin-top:30px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+}
+
+.card::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:6px;
+  background:linear-gradient(90deg,#ff6a00,#ee0979);
+}
+
+.card h3{
+  color:#222;
+  margin-bottom:10px;
+  font-size:24px;
+}
+
+.card p{
+  color:#666;
+  font-size:17px;
+}
+
+@media(max-width:768px){
+
+  .form-box{
+    grid-template-columns:1fr;
+  }
+
+  button{
+    grid-column:auto;
+  }
+
+  .students{
+    grid-template-columns:1fr;
+  }
+
+  .logo{
+    font-size:34px;
+  }
+
+}
+
+</style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-  <h1>Qamar Library</h1>
+<h1 class="logo">Qamar Library</h1>
 
-  <input type="text" id="name" placeholder="Enter Student Name">
+<p class="subtitle">
+Smart Student Management System
+</p>
 
-  <input type="text" id="mobile" placeholder="Enter Mobile Number">
+<div class="form-box">
 
-  <button onclick="saveData()">Save Student</button>
+<input 
+type="text" 
+id="name" 
+placeholder="Enter Student Name"
+>
 
-  <div class="students" id="studentsList"></div>
+<input 
+type="text" 
+id="mobile" 
+placeholder="Enter Mobile Number"
+>
+
+<button onclick="saveData()">
+Save Student
+</button>
+
+</div>
+
+<div class="stats" id="totalStudents">
+Total Students : 0
+</div>
+
+<div class="students" id="studentsList"></div>
 
 </div>
 
 <script type="module">
 
-import { initializeApp } 
+import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-import { 
+import {
   getFirestore,
   collection,
   addDoc,
   getDocs
-} 
+}
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -137,7 +242,7 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
-window.saveData = async function () {
+window.saveData = async function(){
 
   const name = document.getElementById("name").value.trim();
 
@@ -146,30 +251,33 @@ window.saveData = async function () {
   if(name === "" || mobile === ""){
 
     alert("Please Fill All Fields");
+
     return;
 
   }
 
   try{
 
-    await addDoc(collection(db, "students"), {
+    await addDoc(collection(db,"students"),{
 
-      name: name,
-      mobile: mobile,
-      time: new Date()
+      name:name,
+      mobile:mobile,
+      time:new Date()
 
     });
 
-    alert("Data Saved Successfully");
+    document.getElementById("name").value="";
 
-    document.getElementById("name").value = "";
-    document.getElementById("mobile").value = "";
+    document.getElementById("mobile").value="";
 
     loadStudents();
 
-  }catch(error){
+  }
+
+  catch(error){
 
     console.error(error);
+
     alert(error.message);
 
   }
@@ -180,31 +288,38 @@ async function loadStudents(){
 
   const studentsList = document.getElementById("studentsList");
 
+  const totalStudents = document.getElementById("totalStudents");
+
   studentsList.innerHTML = "";
 
   try{
 
-    const querySnapshot = await getDocs(collection(db, "students"));
+    const querySnapshot = await getDocs(collection(db,"students"));
 
-    querySnapshot.forEach((doc) => {
+    totalStudents.innerHTML =
+    `Total Students : ${querySnapshot.size}`;
+
+    querySnapshot.forEach((doc)=>{
 
       const data = doc.data();
 
       studentsList.innerHTML += `
 
-        <div class="card">
+      <div class="card">
 
-          <h3>${data.name}</h3>
+        <h3>${data.name}</h3>
 
-          <p>${data.mobile}</p>
+        <p>📞 ${data.mobile || "No Number"}</p>
 
-        </div>
+      </div>
 
       `;
 
     });
 
-  }catch(error){
+  }
+
+  catch(error){
 
     console.error(error);
 
@@ -217,4 +332,5 @@ loadStudents();
 </script>
 
 </body>
+
 </html>
