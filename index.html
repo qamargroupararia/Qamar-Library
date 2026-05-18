@@ -148,6 +148,62 @@ button:hover{
   margin-bottom:6px;
 }
 
+.badge{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:30px;
+  background:#111;
+  color:white;
+  font-size:12px;
+  margin-top:10px;
+}
+
+.quick-actions{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.quick-card{
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(10px);
+  border-radius:20px;
+  padding:20px;
+  color:white;
+  text-align:center;
+  box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.quick-card h3{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.dark-mode{
+  background:#0d1117 !important;
+}
+
+.dark-mode .panel,
+.dark-mode .stat-card,
+.dark-mode .student-card{
+  background:#161b22;
+  color:white;
+}
+
+.dark-mode .student-card p,
+.dark-mode .stat-card p{
+  color:#ccc;
+}
+
+.dark-mode input,
+.dark-mode select{
+  background:#21262d;
+  color:white;
+  border:1px solid #333;
+}
+
+
 .actions{
   display:flex;
   gap:10px;
@@ -223,9 +279,38 @@ button:hover{
 
 <div class="container">
 
+<div style="position:fixed;top:20px;right:20px;z-index:999;display:flex;gap:10px;">
+<button onclick="toggleTheme()" style="width:auto;padding:12px 18px;background:#111;border-radius:12px;">🌙 Theme</button>
+<button onclick="exportData()" style="width:auto;padding:12px 18px;background:#0f9d58;border-radius:12px;">⬇ Export</button>
+</div>
+
 <div class="header">
   <h1>QAMAR LIBRARY PRO</h1>
   <p>Advanced Library + Seat Booking + Student Management System</p>
+</div>
+
+<div class="quick-actions">
+
+<div class="quick-card">
+<h3>⚡</h3>
+<p>Fast Live System</p>
+</div>
+
+<div class="quick-card">
+<h3>💺</h3>
+<p>Real-Time Seat Tracking</p>
+</div>
+
+<div class="quick-card">
+<h3>📊</h3>
+<p>Premium Dashboard</p>
+</div>
+
+<div class="quick-card">
+<h3>☁</h3>
+<p>Cloud Firebase Storage</p>
+</div>
+
 </div>
 
 <div class="dashboard">
@@ -350,7 +435,37 @@ window.saveStudent = async function(){
   document.getElementById('mobile').value='';
   document.getElementById('seatNumber').value='';
 
-  loadStudents();
+  window.toggleTheme = function(){
+
+  document.body.classList.toggle('dark-mode');
+
+}
+
+window.exportData = function(){
+
+  let data = [];
+
+  document.querySelectorAll('.student-card').forEach(card=>{
+
+    data.push(card.innerText);
+
+  });
+
+  const blob = new Blob([data.join('
+
+')], {type:'text/plain'});
+
+  const a = document.createElement('a');
+
+  a.href = URL.createObjectURL(blob);
+
+  a.download = 'qamar-library-data.txt';
+
+  a.click();
+
+}
+
+loadStudents();
 
 }
 
@@ -385,6 +500,10 @@ async function loadStudents(){
         <p>📞 ${data.mobile}</p>
 
         <p>💺 Seat : ${data.seat}</p>
+
+        <div class="badge">
+        Active Student
+        </div>
 
         <div class="actions">
 
