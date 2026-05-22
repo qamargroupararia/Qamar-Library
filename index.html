@@ -1,3 +1,8 @@
+# QAMAR LIBRARY — FINAL REALTIME ADMIN PANEL CODE
+
+पूरा नीचे वाला code copy करके GitHub के `index.html` में paste कर दो।
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,6 +37,7 @@ top:0;
 display:flex;
 flex-direction:column;
 justify-content:space-between;
+overflow:auto;
 }
 
 .logo{
@@ -74,6 +80,7 @@ padding:18px;
 border-radius:16px;
 color:white;
 font-size:15px;
+margin-top:30px;
 }
 
 .main{
@@ -87,6 +94,7 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:30px;
+gap:20px;
 }
 
 .topbar h1{
@@ -241,15 +249,27 @@ color:#166534;
 font-size:13px;
 }
 
-@media(max-width:1200px){
+.delete-btn{
+background:red;
+padding:8px 12px;
+border:none;
+border-radius:8px;
+color:white;
+cursor:pointer;
+width:auto;
+}
 
+@media(max-width:1200px){
 .grid{
 grid-template-columns:1fr;
 }
-
 }
 
 @media(max-width:900px){
+
+body{
+flex-direction:column;
+}
 
 .sidebar{
 position:relative;
@@ -261,8 +281,13 @@ height:auto;
 margin-left:0;
 }
 
-body{
+.topbar{
 flex-direction:column;
+align-items:flex-start;
+}
+
+.search{
+width:100%;
 }
 
 }
@@ -286,39 +311,20 @@ Smart Management System
 </div>
 
 <div class="menu">
-
-<a href="#" class="active">
-🏠 Dashboard
-</a>
-
-<a href="#">
-👨‍🎓 Students
-</a>
-
-<a href="#">
-💺 Seat Booking
-</a>
-
-<a href="#">
-📊 Reports
-</a>
-
-<a href="#">
-⚙ Settings
-</a>
-
-<a href="#">
-⬇ Backup / Export
-</a>
-
+<a href="#" class="active">🏠 Dashboard</a>
+<a href="#">👨‍🎓 Students</a>
+<a href="#">💺 Seat Booking</a>
+<a href="#">📊 Reports</a>
+<a href="#">⚙ Settings</a>
+<a href="#">⬇ Backup / Export</a>
 </div>
 
 </div>
 
 <div class="status">
-🟢 System Online<br><br>
-Last Backup<br>
-Today 10:30 AM
+🟢 System Online
+<br><br>
+Realtime Firebase Connected
 </div>
 
 </div>
@@ -329,39 +335,35 @@ Today 10:30 AM
 
 <h1>Dashboard</h1>
 
-<input 
-type="text" 
-class="search"
-placeholder="Search students..."
->
+<input type="text" class="search" placeholder="Search students...">
 
 </div>
 
 <div class="cards">
 
 <div class="card card1">
-<h2>124</h2>
+<h2 id="totalStudents">0</h2>
 <p>Total Students</p>
 </div>
 
 <div class="card card2">
-<h2>60</h2>
+<h2 id="totalSeats">60</h2>
 <p>Total Seats</p>
 </div>
 
 <div class="card card3">
-<h2>18</h2>
+<h2 id="availableSeats">0</h2>
 <p>Available Seats</p>
 </div>
 
 <div class="card card4">
-<h2>42</h2>
+<h2 id="todayBookingsCount">0</h2>
 <p>Today Bookings</p>
 </div>
 
 <div class="card card5">
-<h2>₹12,540</h2>
-<p>Revenue</p>
+<h2>LIVE</h2>
+<p>Realtime System</p>
 </div>
 
 </div>
@@ -372,11 +374,11 @@ placeholder="Search students..."
 
 <h2>Add Student</h2>
 
-<input type="text" placeholder="Student Name">
+<input type="text" id="studentName" placeholder="Student Name">
 
-<input type="text" placeholder="Mobile Number">
+<input type="text" id="studentMobile" placeholder="Mobile Number">
 
-<button>
+<button onclick="saveStudent()">
 Save Student
 </button>
 
@@ -386,27 +388,7 @@ Save Student
 
 <h2>Seat Availability</h2>
 
-<div class="seat-grid">
-
-<div class="seat available">1</div>
-<div class="seat available">2</div>
-<div class="seat available">3</div>
-<div class="seat booked">4</div>
-<div class="seat booked">5</div>
-
-<div class="seat available">6</div>
-<div class="seat booked">7</div>
-<div class="seat available">8</div>
-<div class="seat booked">9</div>
-<div class="seat available">10</div>
-
-<div class="seat booked">11</div>
-<div class="seat available">12</div>
-<div class="seat available">13</div>
-<div class="seat booked">14</div>
-<div class="seat available">15</div>
-
-</div>
+<div class="seat-grid" id="seatGrid"></div>
 
 </div>
 
@@ -414,25 +396,7 @@ Save Student
 
 <h2>Today Bookings</h2>
 
-<div class="student">
-<span>Aman Kumar</span>
-<span>Seat 12</span>
-</div>
-
-<div class="student">
-<span>Salman Khan</span>
-<span>Seat 23</span>
-</div>
-
-<div class="student">
-<span>Zoya Parveen</span>
-<span>Seat 07</span>
-</div>
-
-<div class="student">
-<span>Rahul Singh</span>
-<span>Seat 31</span>
-</div>
+<div id="todayBookings"></div>
 
 </div>
 
@@ -447,58 +411,17 @@ All Students
 <table>
 
 <thead>
-
 <tr>
-
 <th>#</th>
 <th>Name</th>
 <th>Mobile</th>
 <th>Seat</th>
 <th>Status</th>
-
+<th>Action</th>
 </tr>
-
 </thead>
 
-<tbody>
-
-<tr>
-<td>1</td>
-<td>Aman Kumar</td>
-<td>9123456780</td>
-<td>12</td>
-<td>
-<span class="status-badge">
-Checked In
-</span>
-</td>
-</tr>
-
-<tr>
-<td>2</td>
-<td>Salman Khan</td>
-<td>9876543210</td>
-<td>23</td>
-<td>
-<span class="status-badge">
-Checked In
-</span>
-</td>
-</tr>
-
-<tr>
-<td>3</td>
-<td>Zoya Parveen</td>
-<td>7991122334</td>
-<td>07</td>
-<td>
-<span class="status-badge">
-Checked In
-</span>
-</td>
-</tr>
-
-</tbody>
+<tbody id="studentsTable"></tbody>
 
 </table>
 
@@ -506,5 +429,205 @@ Checked In
 
 </div>
 
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+addDoc,
+onSnapshot,
+deleteDoc,
+doc
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyDXl60NQHJV2J1iEV6-SjF61197FWVtdNk",
+
+authDomain: "qamar-library.firebaseapp.com",
+
+projectId: "qamar-library",
+
+storageBucket: "qamar-library.appspot.com",
+
+messagingSenderId: "256574977198",
+
+appId: "1:256574977198:web:0241dcc68ac5de4bea293f"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+const studentsRef = collection(db,"students");
+
+const totalSeats = 60;
+
+window.saveStudent = async function(){
+
+const name = document.getElementById("studentName").value;
+
+const mobile = document.getElementById("studentMobile").value;
+
+if(name === "" || mobile === ""){
+alert("Please Fill All Fields");
+return;
+}
+
+let bookedSeats = [];
+
+document.querySelectorAll(".seat.booked").forEach(seat=>{
+bookedSeats.push(Number(seat.innerText));
+});
+
+let selectedSeat = null;
+
+for(let i=1;i<=totalSeats;i++){
+
+if(!bookedSeats.includes(i)){
+selectedSeat = i;
+break;
+}
+
+}
+
+if(selectedSeat === null){
+alert("No Seats Available");
+return;
+}
+
+await addDoc(studentsRef,{
+name:name,
+mobile:mobile,
+seat:selectedSeat,
+status:"Checked In",
+time:new Date()
+});
+
+
+document.getElementById("studentName").value="";
+document.getElementById("studentMobile").value="";
+
+}
+
+function loadRealtimeData(){
+
+onSnapshot(studentsRef,(snapshot)=>{
+
+const tbody = document.getElementById("studentsTable");
+
+const bookingList = document.getElementById("todayBookings");
+
+const seatGrid = document.getElementById("seatGrid");
+
+tbody.innerHTML="";
+bookingList.innerHTML="";
+seatGrid.innerHTML="";
+
+let bookedSeats=[];
+let totalStudents = 0;
+
+snapshot.forEach((docSnap,index)=>{
+
+const data = docSnap.data();
+
+bookedSeats.push(data.seat);
+
+totalStudents++;
+
+tbody.innerHTML += `
+<tr>
+<td>${index+1}</td>
+<td>${data.name}</td>
+<td>${data.mobile}</td>
+<td>${data.seat}</td>
+<td>
+<span class="status-badge">
+${data.status}
+</span>
+</td>
+<td>
+<button class="delete-btn" onclick="deleteStudent('${docSnap.id}')">
+Delete
+</button>
+</td>
+</tr>
+`;
+
+bookingList.innerHTML += `
+<div class="student">
+<span>${data.name}</span>
+<span>Seat ${data.seat}</span>
+</div>
+`;
+
+});
+
+for(let i=1;i<=totalSeats;i++){
+
+if(bookedSeats.includes(i)){
+
+seatGrid.innerHTML += `
+<div class="seat booked">
+${i}
+</div>
+`;
+
+}else{
+
+seatGrid.innerHTML += `
+<div class="seat available">
+${i}
+</div>
+`;
+
+}
+
+}
+
+
+document.getElementById("totalStudents").innerText = totalStudents;
+
+document.getElementById("availableSeats").innerText = totalSeats - bookedSeats.length;
+
+document.getElementById("todayBookingsCount").innerText = bookedSeats.length;
+
+});
+
+}
+
+window.deleteStudent = async function(id){
+
+if(confirm("Delete Student?")){
+
+await deleteDoc(doc(db,"students",id));
+
+}
+
+}
+
+loadRealtimeData();
+
+</script>
+
 </body>
 </html>
+```
+
+# Paste कहाँ करना है
+
+1. GitHub repository खोलो
+2. `index.html` खोलो
+3. पूरा पुराना code delete करो
+4. ऊपर वाला पूरा code paste करो
+5. Commit changes दबाओ
+6. Website refresh करो
+
+Live website:
+
+urlQamar Group Website[https://www.qamargroup.in/](https://www.qamargroup.in/)
