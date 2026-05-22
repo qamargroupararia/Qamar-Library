@@ -122,7 +122,30 @@ table.innerHTML += `
 
 <td>${data.seat}</td>
 
-<td>${data.status}</td>
+<td>
+
+<span class="status-badge">
+
+${data.status}
+
+</span>
+
+</td>
+
+<td>
+
+<button 
+class="action-btn edit-btn">
+Edit
+</button>
+
+<button 
+class="action-btn delete-btn"
+onclick="deleteStudent('${docSnap.id}')">
+Delete
+</button>
+
+</td>
 
 </tr>
 
@@ -185,7 +208,21 @@ document.getElementById("todayBookings").innerText = bookedSeats.length;
 });
 
 }
+window.deleteStudent = async function(id){
 
+const confirmDelete = confirm(
+"Delete Student?"
+);
+
+if(confirmDelete){
+
+await deleteDoc(
+doc(db,"students",id)
+);
+
+}
+
+}
 
 
 loadRealtimeData();
