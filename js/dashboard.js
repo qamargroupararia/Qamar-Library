@@ -1,3 +1,4 @@
+const seatSelect = document.getElementById("seatSelect");
 const searchInput = document.getElementById("searchInput");
 import { db }
 from "./firebase.js";
@@ -31,25 +32,15 @@ return;
 
 }
 
-let bookedSeats = [];
+const selectedSeat = Number(
+seatSelect.value
+);
 
-document.querySelectorAll(".seat.booked").forEach(seat=>{
+if(!selectedSeat){
 
-bookedSeats.push(Number(seat.innerText));
+alert("Select Seat");
 
-});
-
-let selectedSeat = null;
-
-for(let i=1;i<=totalSeats;i++){
-
-if(!bookedSeats.includes(i)){
-
-selectedSeat = i;
-
-break;
-
-}
+return;
 
 }
 
@@ -98,7 +89,13 @@ table.innerHTML="";
 recent.innerHTML="";
 
 seatGrid.innerHTML="";
+seatSelect.innerHTML = `
 
+<option value="">
+Select Seat
+</option>
+
+`;
 let bookedSeats=[];
 
 let totalStudents = 0;
@@ -186,7 +183,13 @@ ${i}
 `;
 
 }else{
+seatSelect.innerHTML += `
 
+<option value="${i}">
+Seat ${i}
+</option>
+
+`;
 seatGrid.innerHTML += `
 
 <div class="seat available">
