@@ -22,9 +22,77 @@ body{
   padding:20px;
 }
 
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+width:260px;
+height:100vh;
+background:#0d1028;
+padding:30px 20px;
+color:white;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+}
+
+.brand{
+font-size:30px;
+margin-bottom:10px;
+}
+
+.brand-sub{
+opacity:0.8;
+margin-bottom:40px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.menu-item{
+padding:15px 18px;
+border-radius:14px;
+cursor:pointer;
+transition:0.3s;
+background:rgba(255,255,255,0.05);
+}
+
+.menu-item:hover,
+.active{
+background:linear-gradient(90deg,#7b2ff7,#f107a3);
+}
+
+.sidebar-footer{
+padding:15px;
+background:rgba(255,255,255,0.08);
+border-radius:15px;
+text-align:center;
+}
+
+.main-content{
+margin-left:280px;
+padding:20px;
+}
+
 .container{
   max-width:1400px;
   margin:auto;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.top-actions{
+display:flex;
+gap:15px;
+align-items:center;
 }
 
 .header{
@@ -47,6 +115,7 @@ body{
 }
 
 .dashboard{
+margin-top:25px;
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:20px;
@@ -255,6 +324,19 @@ button:hover{
 
 @media(max-width:1000px){
 
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+margin-bottom:20px;
+}
+
+.main-content{
+margin-left:0;
+padding:10px;
+}
+
+
 .main-grid{
   grid-template-columns:1fr;
 }
@@ -277,11 +359,47 @@ button:hover{
 </head>
 <body>
 
+<div class="sidebar">
+
+<div>
+<h2 class="brand">📚 QAMAR LIBRARY</h2>
+<p class="brand-sub">Smart Management System</p>
+
+<div class="menu">
+<div class="menu-item active">🏠 Dashboard</div>
+<div class="menu-item">👨‍🎓 Students</div>
+<div class="menu-item">💺 Seat Booking</div>
+<div class="menu-item">📊 Reports</div>
+<div class="menu-item">⚙ Settings</div>
+</div>
+</div>
+
+<div class="sidebar-footer">
+🟢 System Online
+</div>
+
+</div>
+
+<div class="main-content">
+
 <div class="container">
 
 <div style="position:fixed;top:20px;right:20px;z-index:999;display:flex;gap:10px;">
 <button onclick="toggleTheme()" style="width:auto;padding:12px 18px;background:#111;border-radius:12px;">🌙 Theme</button>
 <button onclick="exportData()" style="width:auto;padding:12px 18px;background:#0f9d58;border-radius:12px;">⬇ Export</button>
+</div>
+
+<div class="topbar">
+
+<div>
+<h2 style="color:white;font-size:30px;">Dashboard</h2>
+<p style="color:white;opacity:0.8;">Welcome Back Admin 👋</p>
+</div>
+
+<div class="top-actions">
+<input type="text" placeholder="Search Students..." style="width:280px;background:white;">
+</div>
+
 </div>
 
 <div class="header">
@@ -584,6 +702,8 @@ window.searchStudents = function(){
 loadStudents();
 
 </script>
+
+</div>
 
 </body>
 </html>
