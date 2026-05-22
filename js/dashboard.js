@@ -16,13 +16,15 @@ const studentsRef = collection(db,"students");
 
 const totalSeats = 60;
 
-
-
 window.saveStudent = async function(){
 
 const name = document.getElementById("studentName").value;
 
 const mobile = document.getElementById("studentMobile").value;
+
+const selectedSeat = Number(
+document.getElementById("seatSelect").value
+);
 
 if(name === "" || mobile === ""){
 
@@ -32,21 +34,22 @@ return;
 
 }
 
-const selectedSeat = Number(
-seatSelect.value
-);
-
 if(!selectedSeat){
 
-alert("Select Seat");
+alert("Please Select Seat");
 
 return;
 
 }
 
-if(selectedSeat === null){
+const alreadyBooked = document.querySelector(
+`.seat[data-seat='${selectedSeat}']`
+);
 
-alert("No Seats Available");
+if(alreadyBooked &&
+alreadyBooked.classList.contains("booked")){
+
+alert("Seat Already Booked");
 
 return;
 
@@ -70,8 +73,9 @@ document.getElementById("studentName").value="";
 
 document.getElementById("studentMobile").value="";
 
-}
+document.getElementById("seatSelect").value="";
 
+}
 
 
 function loadRealtimeData(){
@@ -174,10 +178,9 @@ if(bookedSeats.includes(i)){
 
 seatGrid.innerHTML += `
 
-<div class="seat booked">
-
-${i}
-
+<div 
+class="seat booked"
+data-seat="${i}">
 </div>
 
 `;
@@ -192,9 +195,9 @@ Seat ${i}
 `;
 seatGrid.innerHTML += `
 
-<div class="seat available">
-
-${i}
+<div 
+class="seat available"
+data-seat="${i}">
 
 </div>
 
