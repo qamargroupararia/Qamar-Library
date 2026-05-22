@@ -1,3 +1,4 @@
+const searchInput = document.getElementById("searchInput");
 import { db }
 from "./firebase.js";
 
@@ -103,9 +104,12 @@ let bookedSeats=[];
 let totalStudents = 0;
 
 snapshot.forEach((docSnap,index)=>{
-
+const searchValue = searchInput.value.toLowerCase();
 const data = docSnap.data();
-
+if(
+data.name.toLowerCase().includes(searchValue) ||
+data.mobile.includes(searchValue)
+){
 bookedSeats.push(data.seat);
 
 totalStudents++;
@@ -152,7 +156,7 @@ Delete
 `;
 
 recent.innerHTML += `
-
+}
 <div class="student">
 
 <span>${data.name}</span>
@@ -226,3 +230,8 @@ doc(db,"students",id)
 
 
 loadRealtimeData();
+searchInput.addEventListener("input",()=>{
+
+loadRealtimeData();
+
+});
